@@ -1,0 +1,27 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1707558228149,
+      "tag": "0000_slimy_mantis",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1707559160402,
+      "tag": "0001_tearful_miracleman",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1707616559325,
+      "tag": "0002_open_shinko_yamashiro",
+      "breakpoints": true
+    }
+  ]
+}

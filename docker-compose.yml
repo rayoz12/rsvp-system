@@ -1,0 +1,7 @@
+version: '3'
+services:
+    rsvp:
+        build: .
+        container_name: rsvp
+        volumes:
+            - "./rsvp.sqlite.db:/usr/src/app/rsvp.sqlite.db"
