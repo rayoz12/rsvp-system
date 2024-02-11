@@ -38,7 +38,9 @@ export const invitees = sqliteTable('invitees', {
 export type Invitee = typeof invitees.$inferSelect; // return type when queried
 export type NewInvitee = typeof invitees.$inferInsert; // insert type
 
-const sqlite = new Database('rsvp.sqlite.db');
+const databasePath = process.env["DATABASE"] || "rsvp.sqlite.db"
+
+const sqlite = new Database(databasePath);
 const db = drizzle(sqlite);
 migrate(db, { migrationsFolder: './drizzle' });
 
