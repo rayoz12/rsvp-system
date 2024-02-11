@@ -5,3 +5,5 @@ services:
         container_name: rsvp
         volumes:
             - "./rsvp.sqlite.db:/usr/src/app/rsvp.sqlite.db"
+        ports:
+            - "3000:3000"

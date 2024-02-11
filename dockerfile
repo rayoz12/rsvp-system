@@ -27,5 +27,5 @@ COPY . .
 COPY --from=builder /usr/src/app/build .
 
 
-EXPOSE 8080
+EXPOSE 3000
 ENTRYPOINT [ "node", "index.js" ]
