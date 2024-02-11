@@ -33,8 +33,8 @@ async function main() {
     });
 
     app.get("/:id", async (req, res) => {
-        const {id} = req.params;
-
+        const {id: idRaw} = req.params;
+        const id = idRaw.toLowerCase();
         if (!id) {
             throw new Error("id not passed");
         }
