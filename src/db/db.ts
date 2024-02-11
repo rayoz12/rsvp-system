@@ -73,11 +73,24 @@ export const updateInvitee = (value: Invitee) => {
     );
 }
 
-export const incrementViewCount = async (inviteeId: string) => {
+export const incrementViewCount = async (invitee: Invitee) => {
+    if (!invitee) {
+        throw new Error("Invitee not Found!");
+    }
+    invitee.viewCount++;
+    return updateInvitee(invitee);
+}
+
+export const incrementViewCountById = async (inviteeId: string) => {
     const invitee = await getInvitee(inviteeId);
     if (!invitee) {
         throw new Error("Invitee not Found!");
     }
     invitee.viewCount++
     updateInvitee(invitee);
+}
+
+export const isValidInviteeCode = async (inviteeId: string) => {
+    const row: {result: 1 | 0} = sqlite.prepare('SELECT EXISTS(SELECT 1 FROM invitees WHERE id=?) as result').get(inviteeId) as any;
+    return row.result === 1;
 }
