@@ -3,3 +3,5 @@ node_modules
 *.db
 build/
 db/seed.json
+backup/.env
+backup/keys.txt
