@@ -4,6 +4,16 @@ services:
         build: .
         container_name: rsvp
         volumes:
-            - "./rsvp.sqlite.db:/usr/src/app/rsvp.sqlite.db"
-        ports:
-            - "3000:3000"
+            - "/home/ryan/docker/data/dev/rsvp-system:/rsvp-system"
+        environment:
+            - "DATABASE=/rsvp-system/rsvp.sqlite.db"
+        # ports:
+        #     - "3000:3000"
+        networks:
+            - reverse_proxy
+        # entrypoint: "sh"
+
+networks:
+  reverse_proxy:
+    name: reverse_proxy
+    external: true

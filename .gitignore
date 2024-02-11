@@ -5,3 +5,5 @@ build/
 db/seed.json
 backup/.env
 backup/keys.txt
+backup/.b2
+
