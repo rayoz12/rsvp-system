@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node --env-file=.env --loader ts-node/esm src/index.ts",
+    "start-express-debug": "set DEBUG=express:* & node --env-file=.env --loader ts-node/esm src/index.ts",
     "generate": "drizzle-kit generate:sqlite --out drizzle --schema src/db/db.ts",
     "build": "tsc"
   },

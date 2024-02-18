@@ -5,236 +5,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ryan & Manjusha</title>
-    <link rel="stylesheet" href="res/normalise.css" type="text/css">
-    <link rel="stylesheet" href="res/sakura-earthly.css" type="text/css">
-    <style type="">
-        @font-face {
-            font-family: "Murottal";
-            src: url(res/Murottal.ttf) format("truetype");
-        }
+    <link rel="stylesheet" href="/res/normalise.css" type="text/css">
+    <link rel="stylesheet" href="/res/sakura-earthly.css" type="text/css">
+    <link rel="stylesheet" href="/res/styles.css" type="text/css">
 
-        .names {
-            font-family: "Murottal", Verdana, Geneva, Tahoma, sans-serif;
-            font-size: 8em;
-        }
+    <script src="/res/fuse.js"></script>
 
-        .plus1Element {
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 250ms ease-in, visibility 0ms ease-in 250ms;
-        }
-
-        .plus1Element.show {
-            visibility: visible;
-            opacity: 1;
-            transition: opacity 250ms ease-in, visibility 0ms ease-in 0ms;
-        }
-
-        .question {
-            font-weight: 600;
-        }
-
-        .centre {
-            text-align: center;
-        }
-
-        /* headlines with lines */
-        .decorated{
-            overflow: hidden;
-            text-align: center;
-        }
-        .decorated > span{
-            position: relative;
-            display: inline-block;
-        }
-        .decorated > span:before, .decorated > span:after{
-            content: '';
-            position: absolute;
-            top: 50%;
-            border-bottom: 2px solid;
-            width: 100vw;
-            margin: 0 20px;
-        }
-        .decorated > span:before{
-            right: 100%;
-        }
-        .decorated > span:after{
-            left: 100%;
-        }
-
-        /* container */
-        .flex { display: flex; }
-
-        /* direction */
-        .flex-col { flex-direction: column; }
-        .flex-row { flex-direction: row; }
-        .flex-col-r { flex-direction: column-reverse; }
-        .flex-row-r { flex-direction: row-reverse; }
-
-        /* wrap */
-        .flex.nowrap { flex-wrap: nowrap; }
-        .flex.wrap { flex-wrap: wrap; }
-        .flex.wrap-reverse { flex-wrap: wrap; }
-
-        /* main axis */
-        .justify-start { justify-content: flex-start; }
-        .justify-end { justify-content: flex-end; }
-        .justify-center { justify-content: center; }
-        .justify-between { justify-content: space-between; }
-        .justify-around { justify-content: space-around; }
-        .justify-evenly { justify-content: space-evenly; }
-
-        /* cross axis */
-        .align-start { align-items: flex-start; }
-        .align-end { align-items: flex-end; }
-        .align-center { align-items: center; }
-        .align-baseline { align-items: baseline; }
-        .align-stretch { align-items: stretch; }
-
-        /* grow/shrink */
-        .flex-grow { flex-grow: 1; }
-        .flex-shrink { flex-shrink: 1; }
+    <style>
+    table, th, td {
+        border: 1px solid;
+    }
+    body {
+        max-width: unset;
+    }
     </style>
 </head>
 
 <body>
     <h1 class="names">Ryan & Manjusha</h1>
+    <h2>Admin Page</h2>
+    
+    <div class="flex flex-row align-center" style="gap: 20px">
+        <label for="search">Search: </label>
+        <input type="text" id="search" class="search flex-grow" />
+    </div>
 
-    <form method="post" action="invitee-response" enctype="text/plain" target="_self">
-
-        <h2>Hello {{name}}</h2>
-        <p class="question">We would love to invite you to our Nuptials & Reception on the 24th of November</p>
-
-        <h2 class="decorated"><span>Nuptials</span></h2>
-        <p class="question">The Good Shepherd Parish Plumpton: 136 Hyatts Rd, Plumpton</p>
-        <div style="width: 100%;">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13270.02828291248!2d150.8333391!3d-33.7475604!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b129bb4233a84ab%3A0x14161442202c0426!2sThe%20Good%20Shepherd%20Parish%20Plumpton!5e0!3m2!1sen!2sau!4v1707613982564!5m2!1sen!2sau" height="300" style="border:0;width: 100%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-
-        <fieldset>
-            <legend>Will you join us at our Nuptials?</legend>
-            <div class="flex flex-row">
-                <div class="flex flex-grow align-center flex-col">
-                    <label for="nuptialsResponseYes">Yes, I'll be there!</label>
-                    <input type="radio" id="nuptialsResponseYes" name="nuptialsResponse" required value="yes" />
-                </div>
-                <div class="flex flex-grow align-center flex-col">
-                    <label for="nuptialsResponseNo">No</label>
-                    <input type="radio" id="nuptialsResponseNo" name="nuptialsResponse" required value="no" />
-                </div>
-            </div>
-        </fieldset>
-
-        <p class="question">Feel free to bring along a +1</p>
-
-        <h2 class="decorated"><span>Reception</span></h2>
-        <!-- <p class="question">Will you be able to make our special day?</p> -->
-
-        <p class="question">Montage: 38 Frazer St, Lilyfield</p>
-        <div style="width: 100%;">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3312.749171860629!2d151.14994657724114!3d-33.870354573226095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12affcac9a22d3%3A0x387e7c836ddd2ff!2sMontage%20Sydney!5e0!3m2!1sen!2sau!4v1707614003625!5m2!1sen!2sau" height="300" style="border:0;width: 100%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-
-        <fieldset>
-            <legend>Will you join us at our Reception?</legend>
-            <div class="flex flex-row">
-                <div class="flex flex-grow align-center flex-col">
-                    <label for="receptionResponseYes">Yes, I'll be there!</label>
-                    <input type="radio" id="receptionResponseYes" name="receptionResponse" required value="yes" />
-                </div>
-                <div class="flex flex-grow align-center flex-col">
-                    <label for="receptionResponseNo">No</label>
-                    <input type="radio" id="receptionResponseNo" name="receptionResponse" required value="no" />
-                </div>
-            </div>
-        </fieldset>
-
-        {{#if plus1Enabled}}
-
-        <p class="question" >Will you bring along someone to celebrate?</p>
-        <p>
-            <label>
-                <input type="radio" name="plus1" required value="yes" />
-                Yes
-            </label>
-        </p>
-        <p>
-            <label>
-                <input type="radio" name="plus1" required value="no" />
-                No
-            </label>
-        </p>
-
-        <p id="plus1Element" class="plus1Element fade-in">
-            <label>
-                Your +1's Name?
-                <input type="text" id="plus1Name" name="plus1Name" required value="" />
-            </label>
-        </p>
-
-        {{/if}}
-
-        <p>
-            <h4>Dietary Requirements</h4>
-            <label>
-                <input type="checkbox" name="dietaryRequirementsVegetarian" />
-                Vegetarian
-            </label>
-            <label>
-                <input type="checkbox" name="dietaryRequirementsVegan" />
-                Vegan
-            </label>
-            <textarea id="dietaryRequirements" name="dietaryRequirements" value="" placeholder="Other"></textarea>
-        </p>
-
-        <p>
-            <label>
-                What song would get you on the dance floor?
-                <textarea id="extraSong" name="extraSong" placeholder="Usher, Fred again.. or the Weeknd?"></textarea>
-            </label>
-        </p>
-
-        <button type="submit">RSVP</button>
-    </form>
-
-
-
+    <table>
+        <thead>
+            <tr>
+                <th rowspan="2">Name</th>
+                <th rowspan="2">ID</th>
+                <th rowspan="2">link</th>
+                <th colspan="2">Response</th>
+                <th rowspan="2">View Count</th>
+                <th rowspan="2">Plus 1 Enabled?</th>
+                <th rowspan="2">Plus 1?</th>
+                <th rowspan="2">Plus 1 Name</th>
+                <th rowspan="2">Dietary Requirements</th>
+                <th rowspan="2">Extra Song</th>
+            </tr>
+            <tr>
+                <th>Nuptials</th>
+                <th>Reception</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each invitees}}
+                <tr>
+                    <td>{{this.name}}</td>
+                    <td>{{this.id}}</td>
+                    <td><a href="https://ryanandmanjusha.com/{{this.id}}">link</a></td>
+                    <td>{{#if this.nuptialsResponse}} {{this.nuptialsResponse}} {{else}} <em>None</em> {{/if}}</td>
+                    <td>{{#if this.receptionResponse}} {{this.receptionResponse}} {{else}} <em>None</em> {{/if}}</td>
+                    <td>{{this.viewCount}}</td>
+                    <td>{{this.plus1Enabled}}</td>
+                    <td>{{#if this.plus1}} {{this.plus1}} {{else}} <em>None</em> {{/if}}</td>
+                    <td>{{#if this.plus1Name}} {{this.plus1Name}} {{else}} <em>None</em> {{/if}}</td>
+                    <td>{{#if this.dietaryRequirements}} {{this.dietaryRequirements}} {{else}} <em>None</em> {{/if}}</td>
+                    <td>{{#if this.extraSong}} {{this.extraSong}} {{else}} <em>None</em> {{/if}}</td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
     <script>
-        const plus1Name = document.getElementById("plus1Name");
-        const radios = document.querySelectorAll('input[name="plus1"]');
-        const plus1p = document.getElementById("plus1Element");
-        
-        function bringingPlus1(isBringing) {
-            if (isBringing) {
-                plus1Name.setAttribute("required", "true");
-                plus1p.classList.add("show");
-            }
-            else {
-                plus1Name.removeAttribute("required");
-                plus1Name.value = "";
-                plus1p.classList.remove("show");
-            }
-        }
-        
-        for (match in radios) {
-            radios[match].onchange = function () {
-                if (this.value === "yes") {
-                    bringingPlus1(true);
-                }
-                else if (this.value === "no") {
-                    bringingPlus1(false);
-                }
-                else {
-                    console.error("Unknown value!");
-                }
-            }
 
-            if (radios[match].checked && radios[match].value === "yes") {
-                bringingPlus1(true);
-            }
-            else if (radios[match].checked && radios[match].value === "no") {
-                bringingPlus1(false);
-            }
+        const search = document.getElementById("search");
+        search.addEventListener("change");
+
+        function search() {
+
         }
     </script>
 </body>

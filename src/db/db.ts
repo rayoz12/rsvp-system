@@ -25,10 +25,10 @@ export const invitees = sqliteTable('invitees', {
     id: text('id').primaryKey().$defaultFn(randomID),
     name: text('name').notNull(),
     viewCount: integer("view_count").notNull().default(0),
+    plus1Enabled: integer("plus1_enabled", {mode: 'boolean'}).notNull(), // If this user has the option to bring a plus1
     // Response Details
     nuptialsResponse: integer("nuptials_response", {mode: 'boolean'}), // Obviously true = coming and false = not coming
     receptionResponse: integer("reception_response", {mode: 'boolean'}), // Obviously true = coming and false = not coming
-    plus1Enabled: integer("plus1_enabled", {mode: 'boolean'}).notNull(), // If this user has the option to bring a plus1
     plus1: integer("plus1_response", {mode: 'boolean'}), // true = yes, bringing plus 1 and false = no plus 1
     plus1Name: text("plus1_name"), // valid only if plus 1 is filled in
     dietaryRequirements: text("dietary_requirements"),
@@ -37,6 +37,7 @@ export const invitees = sqliteTable('invitees', {
 
 export type Invitee = typeof invitees.$inferSelect; // return type when queried
 export type NewInvitee = typeof invitees.$inferInsert; // insert type
+export type RSVPResponse = Omit<Invitee, "id" | "name" | "viewCount" | "plus1Enabled">
 
 const databasePath = process.env["DATABASE"] || "rsvp.sqlite.db"
 
@@ -95,4 +96,36 @@ export const incrementViewCountById = async (inviteeId: string) => {
 export const isValidInviteeCode = async (inviteeId: string) => {
     const row: {result: 1 | 0} = sqlite.prepare('SELECT EXISTS(SELECT 1 FROM invitees WHERE id=?) as result').get(inviteeId) as any;
     return row.result === 1;
+}
+
+export const invitationResponse = async (
+    inviteeId: string, response: RSVPResponse
+) => {
+    // @ts-expect-error
+    delete response.id;
+    // @ts-expect-error
+    delete response.name;
+    // @ts-expect-error
+    delete response.viewCount;
+    // @ts-expect-error
+    delete response.plus1Enabled;
+
+    const invitee = await getInvitee(inviteeId);
+    if (!invitee) {
+        throw new Error("Invitee not Found");
+    }
+
+    const updated = {...invitee, ...response};
+
+    console.log("Updating Invitee:", updated);
+    // return;
+
+    return db.update(invitees).set(updated)
+    .where(
+        and(
+            eq(invitees.id, updated.id),
+            eq(invitees.name, updated.name),
+            eq(invitees.plus1Enabled, updated.plus1Enabled)
+        )
+    );  
 }
