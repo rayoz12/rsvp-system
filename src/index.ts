@@ -24,6 +24,9 @@ Handlebars.registerHelper('not', function(value) {
 });
 
 Handlebars.registerHelper('cleanDietRequirements', function(value: string) {
+    if (!value) {
+        return ""
+    }
     const newValue = value.replace("Vegetarian\n", "").replace("Vegan\n", "").trim();
     console.log(newValue);
     if (newValue === "") 

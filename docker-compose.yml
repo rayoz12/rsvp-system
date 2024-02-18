@@ -11,6 +11,7 @@ services:
         #     - "3000:3000"
         networks:
             - reverse_proxy
+        restart: unless-stopped
         # entrypoint: "sh"
 
 networks:
