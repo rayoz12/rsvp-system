@@ -53,11 +53,25 @@
             <div class="flex flex-row">
                 <div class="flex flex-grow align-center flex-col">
                     <label for="nuptialsResponseYes">Yes, I'll be there!</label>
-                    <input type="radio" id="nuptialsResponseYes" name="nuptialsResponse" required value="yes" />
+                    <input 
+                        type="radio"
+                        id="nuptialsResponseYes"
+                        name="nuptialsResponse"
+                        required 
+                        value="yes"
+                        {{#if (isSet nuptialsResponse)}} {{#if nuptialsResponse}} checked {{/if}} {{/if}}
+                    />
                 </div>
                 <div class="flex flex-grow align-center flex-col">
                     <label for="nuptialsResponseNo">No</label>
-                    <input type="radio" id="nuptialsResponseNo" name="nuptialsResponse" required value="no" />
+                    <input 
+                        type="radio"
+                        id="nuptialsResponseNo"
+                        name="nuptialsResponse"
+                        required 
+                        value="no"
+                        {{#if (isSet nuptialsResponse)}} {{#if (not nuptialsResponse)}} checked {{/if}} {{/if}}
+                    />
                 </div>
             </div>
         </fieldset>
@@ -79,11 +93,25 @@
             <div class="flex flex-row">
                 <div class="flex flex-grow align-center flex-col">
                     <label for="receptionResponseYes">Yes, I'll be there!</label>
-                    <input type="radio" id="receptionResponseYes" name="receptionResponse" required value="yes" />
+                    <input
+                        type="radio"
+                        id="receptionResponseYes"
+                        name="receptionResponse"
+                        required
+                        value="yes"
+                        {{#if (isSet receptionResponse)}} {{#if receptionResponse}} checked {{/if}} {{/if}}
+                    />
                 </div>
                 <div class="flex flex-grow align-center flex-col">
                     <label for="receptionResponseNo">No</label>
-                    <input type="radio" id="receptionResponseNo" name="receptionResponse" required value="no" />
+                    <input
+                        type="radio"
+                        id="receptionResponseNo"
+                        name="receptionResponse"
+                        required
+                        value="no"
+                        {{#if (isSet receptionResponse)}} {{#if (not receptionResponse)}} checked {{/if}} {{/if}}
+                    />
                 </div>
             </div>
         </fieldset>
@@ -93,13 +121,25 @@
         <p class="question" >Will you bring along someone to celebrate?</p>
         <p>
             <label>
-                <input type="radio" name="plus1" required value="yes" />
+                <input
+                    type="radio"
+                    name="plus1"
+                    required
+                    value="yes"
+                    {{#if (isSet plus1)}} {{#if plus1}} checked {{/if}} {{/if}}
+                />
                 Yes
             </label>
         </p>
         <p>
             <label>
-                <input type="radio" name="plus1" required value="no" />
+                <input
+                    type="radio"
+                    name="plus1"
+                    required
+                    value="no"
+                    {{#if (isSet plus1)}} {{#if (not plus1)}} checked {{/if}} {{/if}}
+                />
                 No
             </label>
         </p>
@@ -107,7 +147,13 @@
         <p id="plus1Element" class="plus1Element fade-in">
             <label>
                 Your +1's Name?
-                <input type="text" id="plus1Name" name="plus1Name" required value="" />
+                <input
+                    type="text"
+                    id="plus1Name"
+                    name="plus1Name"
+                    required
+                    {{#if (isSet plus1Name)}} value="{{plus1Name}}" {{/if}}
+                />
             </label>
         </p>
 
@@ -116,20 +162,31 @@
         <p>
             <h4>Dietary Requirements</h4>
             <label>
-                <input type="checkbox" name="dietaryRequirementsVegetarian" />
+                <input
+                    type="checkbox"
+                    name="dietaryRequirementsVegetarian"
+                    {{#if (contains dietaryRequirements "Vegetarian")}} checked {{/if}}
+                />
                 Vegetarian
             </label>
             <label>
-                <input type="checkbox" name="dietaryRequirementsVegan" />
+                <input
+                    type="checkbox"
+                    name="dietaryRequirementsVegan"
+                    {{#if (contains dietaryRequirements "Vegan")}} checked {{/if}}
+                />
                 Vegan
             </label>
-            <textarea id="dietaryRequirements" name="dietaryRequirements" value="" placeholder="Other"></textarea>
+            <textarea
+                id="dietaryRequirements"
+                name="dietaryRequirements"
+                placeholder="Other">{{#if (isSet (cleanDietRequirements dietaryRequirements))}}{{cleanDietRequirements dietaryRequirements}}{{/if}}</textarea>
         </p>
 
         <p>
             <label>
                 What song would get you on the dance floor?
-                <textarea id="extraSong" name="extraSong" placeholder="Usher, Fred again.. or the Weeknd?"></textarea>
+                <textarea id="extraSong" name="extraSong" placeholder="Usher, Fred again.. or the Weeknd?">{{#if (isSet extraSong)}}{{extraSong}}{{/if}}</textarea>
             </label>
         </p>
 
@@ -143,9 +200,12 @@
         const radios = document.querySelectorAll('input[name="plus1"]');
         const plus1p = document.getElementById("plus1Element");
 
-        const invitee = location.pathname;
-        console.log(invitee)
-        
+        // Initial values, don't look it isn't fun
+        const initial = {{{json}}}
+
+        // update intial values
+
+        // Form Dynamic Behaviour
         function bringingPlus1(isBringing) {
             if (isBringing) {
                 plus1Name.setAttribute("required", "true");
@@ -153,7 +213,7 @@
             }
             else {
                 plus1Name.removeAttribute("required");
-                plus1Name.value = "";
+                // plus1Name.value = "";
                 plus1p.classList.remove("show");
             }
         }
