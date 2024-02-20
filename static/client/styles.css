@@ -3,9 +3,18 @@
     src: url(/res/Murottal.ttf) format("truetype");
 }
 
+@font-face {
+    font-family: "Satisfy";
+    src: url(/res/Satisfy-Regular.ttf) format("truetype");
+}
+
 .names {
-    font-family: "Murottal", Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 8em;
+    /* font-family: "Murottal", Verdana, Geneva, Tahoma, sans-serif; */
+    /* font-size: 8em; */
+    
+    font-family: "Satisfy", Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 5em;
+    text-align: center;
 }
 
 .plus1Element {

@@ -22,6 +22,20 @@
       "when": 1707616559325,
       "tag": "0002_open_shinko_yamashiro",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1708415620583,
+      "tag": "0003_fast_luke_cage",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1708415838065,
+      "tag": "0004_far_omega_red",
+      "breakpoints": true
     }
   ]
 }

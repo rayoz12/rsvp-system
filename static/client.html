@@ -42,6 +42,46 @@
         <h2>Hello {{name}}</h2>
         <p class="question">We would love to invite you to our Nuptials & Reception on the 24th of November</p>
 
+
+        
+        {{#if indianResponseEnabled}}
+        <h2 class="decorated"><span>Indian Ceremony</span></h2>
+        <p class="question">Oatlands Estate: 42 Bettington Rd, Oatlands</p>
+        <div style="width: 100%;">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13262.635567101206!2d151.0300364!3d-33.7953058!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12a39bd0384f7f%3A0x1907c0ae2d13d4c2!2sOatlands%20Estate!5e0!3m2!1sen!2sau!4v1708416616842!5m2!1sen!2sau" height="300" style="border:0;width: 100%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <fieldset>
+            <legend>Will you join us at the Indian Ceremony?</legend>
+            <div class="flex flex-row">
+                <div class="flex flex-grow align-center flex-col">
+                    <label for="indianResponseYes">Yes, I'll be there!</label>
+                    <input 
+                        type="radio"
+                        id="indianResponseYes"
+                        name="indianResponse"
+                        required 
+                        value="yes"
+                        {{#if (isSet indianResponse)}} {{#if indianResponse}} checked {{/if}} {{/if}}
+                    />
+                </div>
+                <div class="flex flex-grow align-center flex-col">
+                    <label for="indianResponseNo">No</label>
+                    <input 
+                        type="radio"
+                        id="indianResponseNo"
+                        name="indianResponse"
+                        required 
+                        value="no"
+                        {{#if (isSet indianResponse)}} {{#if (not indianResponse)}} checked {{/if}} {{/if}}
+                    />
+                </div>
+            </div>
+        </fieldset>
+        {{/if}}
+
+
+        {{#if nuptialsResponseEnabled}}
         <h2 class="decorated"><span>Nuptials</span></h2>
         <p class="question">The Good Shepherd Parish Plumpton: 136 Hyatts Rd, Plumpton</p>
         <div style="width: 100%;">
@@ -75,14 +115,14 @@
                 </div>
             </div>
         </fieldset>
+        {{/if}}
 
         {{#if plus1Enabled}}
         <p class="question">Feel free to bring along a +1</p>
         {{/if}}
 
+        {{#if receptionResponseEnabled}}
         <h2 class="decorated"><span>Reception</span></h2>
-        <!-- <p class="question">Will you be able to make our special day?</p> -->
-
         <p class="question">Montage: 38 Frazer St, Lilyfield</p>
         <div style="width: 100%;">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3312.749171860629!2d151.14994657724114!3d-33.870354573226095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12affcac9a22d3%3A0x387e7c836ddd2ff!2sMontage%20Sydney!5e0!3m2!1sen!2sau!4v1707614003625!5m2!1sen!2sau" height="300" style="border:0;width: 100%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -115,6 +155,7 @@
                 </div>
             </div>
         </fieldset>
+        {{/if}}
 
         {{#if plus1Enabled}}
 
@@ -146,7 +187,7 @@
 
         <p id="plus1Element" class="plus1Element fade-in">
             <label>
-                Your +1's Name?
+                What's their Name?
                 <input
                     type="text"
                     id="plus1Name"
@@ -199,9 +240,6 @@
         const plus1Name = document.getElementById("plus1Name");
         const radios = document.querySelectorAll('input[name="plus1"]');
         const plus1p = document.getElementById("plus1Element");
-
-        // Initial values, don't look it isn't fun
-        const initial = {{{json}}}
 
         // update intial values
 

@@ -3,47 +3,14 @@ import express from "express"
 import Handlebars from "handlebars";
 import tokenService from "./utils/tokens.js";
 import { RSVPResponse, getInvitee, getInvitees, incrementViewCount, insertInvitee, invitationResponse, isValidInviteeCode, updateInvitee } from "./db/db.js";
+import { handlebarsInit } from "./utils/handlebars.js";
 
 const port = process.env["PORT"] || 3000;
 const isDev = process.env["NODE_ENV"] !== "production";
 
-Handlebars.registerHelper("nullCheck", (value) => {
-    return value ? value : "None"; 
-});
-
-Handlebars.registerHelper('json', function(this: any) {
-    return JSON.stringify(this);
-});
-
-Handlebars.registerHelper('isSet', function(value) {
-    return value !== null || value !== undefined;
-});
-
-Handlebars.registerHelper('not', function(value) {
-    return !value;
-});
-
-Handlebars.registerHelper('cleanDietRequirements', function(value: string) {
-    if (!value) {
-        return ""
-    }
-    const newValue = value.replace("Vegetarian\n", "").replace("Vegan\n", "").trim();
-    console.log(newValue);
-    if (newValue === "") 
-        return null;
-    else
-        return newValue;
-});
-
-Handlebars.registerHelper('contains', function(value: string, substring: string) {
-    if (value === null) {
-        return false;
-    }
-    return value.includes(substring);
-});
-
 interface InviteeResponse {
     token: string,
+    indianResponse?: 'yes' | 'no',
     nuptialsResponse?: 'yes' | 'no',
     receptionResponse?: 'yes' | 'no',
     plus1?: 'yes' | 'no',
@@ -79,8 +46,6 @@ function stringToBool(text?: string) {
 }
 
 async function main() {
-    
-    
     if (process.argv.includes("--seed")) {
         // Seed database
         console.log("Seeding database...");
@@ -92,6 +57,9 @@ async function main() {
         
         process.exit();
     }
+
+    console.log("Loading Handlebars");
+    await handlebarsInit();
 
     const app = express();
     app.use(express.json());
@@ -145,6 +113,7 @@ async function main() {
         }
 
         const rsvpResponse: RSVPResponse = {
+            indianResponse: YesNoToBool(inviteeRes.indianResponse),
             nuptialsResponse: YesNoToBool(inviteeRes.nuptialsResponse),
             receptionResponse: YesNoToBool(inviteeRes.receptionResponse),
             plus1: YesNoToBool(inviteeRes.plus1),

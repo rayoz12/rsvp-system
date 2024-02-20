@@ -36,7 +36,8 @@
                 <th rowspan="2">Name</th>
                 <th rowspan="2">ID</th>
                 <th rowspan="2">link</th>
-                <th colspan="2">Response</th>
+                <th colspan="3">Invited to Event</th>
+                <th colspan="3">Response</th>
                 <th rowspan="2">View Count</th>
                 <th rowspan="2">Plus 1 Enabled?</th>
                 <th rowspan="2">Plus 1?</th>
@@ -45,6 +46,10 @@
                 <th rowspan="2">Extra Song</th>
             </tr>
             <tr>
+                <th>Indian</th>
+                <th>Nuptials</th>
+                <th>Reception</th>
+                <th>Indian</th>
                 <th>Nuptials</th>
                 <th>Reception</th>
             </tr>
@@ -54,11 +59,17 @@
                 <tr>
                     <td>{{this.name}}</td>
                     <td>{{this.id}}</td>
-                    <td><a href="https://ryanandmanjusha.com/{{this.id}}">link</a></td>
-                    <td>{{#if this.nuptialsResponse}} {{this.nuptialsResponse}} {{else}} <em>None</em> {{/if}}</td>
-                    <td>{{#if this.receptionResponse}} {{this.receptionResponse}} {{else}} <em>None</em> {{/if}}</td>
+                    <td><a href="/{{this.id}}">link</a></td>
+                    <td>{{>boolToYN this.indianResponseEnabled}}</td>
+                    <td>{{>boolToYN this.nuptialsResponseEnabled}}</td>
+                    <td>{{>boolToYN this.receptionResponseEnabled}}</td>
+                    
+                    <td>{{>boolToYN this.indianResponse}}</td>
+                    <td>{{>boolToYN this.nuptialsResponse}}</td>
+                    <td>{{>boolToYN this.receptionResponse}}</td>
+                    
                     <td>{{this.viewCount}}</td>
-                    <td>{{this.plus1Enabled}}</td>
+                    <td>{{>boolToYN this.plus1Enabled}}</td>
                     <td>{{#if this.plus1}} {{this.plus1}} {{else}} <em>None</em> {{/if}}</td>
                     <td>{{#if this.plus1Name}} {{this.plus1Name}} {{else}} <em>None</em> {{/if}}</td>
                     <td>{{#if this.dietaryRequirements}} {{this.dietaryRequirements}} {{else}} <em>None</em> {{/if}}</td>
@@ -73,7 +84,7 @@
         search.addEventListener("change");
 
         function search() {
-
+            
         }
     </script>
 </body>

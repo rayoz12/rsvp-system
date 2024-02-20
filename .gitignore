@@ -3,6 +3,7 @@ node_modules
 *.db
 build/
 db/seed.json
+db/people.md
 backup/.env
 backup/keys.txt
 backup/.b2
