@@ -7,4 +7,5 @@ db/people.md
 backup/.env
 backup/keys.txt
 backup/.b2
+static/client/photos
 

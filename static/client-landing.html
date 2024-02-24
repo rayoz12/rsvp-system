@@ -15,16 +15,86 @@
             location.href += value;
         }   
     </script>
+    <style>
+        html, body {
+            background-color: unset;
+            height: 100%;
+        }
+        :root {
+            /* --bg-image: url('res/photos/proposal_1.jpeg'); */
+            --bg-horizontal-image: url('res/Photos/horizontal/proposal_horizontal_1.jpg');
+            --bg-vertical-image: url('res/Photos/vertical/proposal_vertical_1.jpeg');
+            --names-horizontal-colour: "white";
+            --names-vertical-colour: "white";
+        }
+
+        @media (orientation: landscape) {
+            .cover {
+                background-image: var(--bg-horizontal-image);
+                color: var(--names-horizontal-colour);
+            }
+        }
+
+        @media (orientation: portrait) {
+            .cover {
+                background-image: var(--bg-vertical-image);
+                color: var(--names-vertical-colour);
+            }
+        }
+
+        body {
+            height:100%;
+            width: 100%;
+            
+            padding: 0;
+            margin: unset;
+            max-width: unset;
+        }
+
+        .cover {
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            transition: background-image 1s ease-in-out;
+        }
+
+        .names-container {
+            /* background-color: rgba(100, 100, 100, 0.25); */
+            margin: 0 0 50px 50px;
+            border-radius: 5px;
+            /* backdrop-filter: blur(2px); */
+            /* -webkit-backdrop-filter: blur(2px); */
+        }
+
+        .names {
+            transition: color 1s ease-in-out;
+            color: inherit;
+            padding: 0 15px;
+        }
+
+    </style>
 </head>
 
 <body>
-    <h1 class="names">Ryan & Manjusha</h1>
 
-    <form id="codeForm">
-        <p class="question">Please enter your unique code:</p>
-        <input type="text" id="code" required value="" placeholder="fflesp" />
-        <button type="submit">RSVP</button>
-    </form>
+    <div class="flex flex-col main-container size-full">
+        <div class="cover size-full flex flex-col align-start">
+            <div class="flex-grow"></div>
+            <div class="names-container">
+                <!-- <h1 class="names">The bitches and the boyz</h1> -->
+                <h1 class="names">Ryan & Manjusha</h1>
+            </div>
+        </div>
+        <div>
+            <form id="codeForm">
+                <p class="question">Please enter your unique code:</p>
+                <input type="text" id="code" required value="" placeholder="fflesp" />
+                <button type="submit">RSVP</button>
+            </form>
+        </div>
+    </div>
+
+
 
     <script>
         const form = document.getElementById("codeForm");
@@ -32,6 +102,52 @@
             event.preventDefault();
             redirect();
         });
+
+        let horizontalImageIdx = 0;
+        let verticalImageIdx = 0;
+
+        function background_init() {
+
+        }
+
+        function increment(value, max) {
+            return (value + 1) % max;
+        }
+
+        const name = document.querySelector(".names");
+
+        setInterval(() => {
+            horizontalImageIdx = (horizontalImageIdx + 1) % horizontalImages.length;
+            verticalImageIdx = (verticalImageIdx + 1) % verticalImages.length;
+
+            const horizontalImage = horizontalImages[horizontalImageIdx];
+            const verticalImage = verticalImages[verticalImageIdx];
+
+            document.querySelector(":root").style.setProperty('--bg-horizontal-image', `url('${horizontalImage.image}')`);
+            document.querySelector(":root").style.setProperty('--bg-vertical-image', `url('${verticalImage.image}')`);
+
+            document.querySelector(":root").style.setProperty('--names-horizontal-colour', horizontalImage.nameColour);
+            document.querySelector(":root").style.setProperty('--names-vertical-colour', verticalImage.nameColour);
+
+
+        }, 2000);
+
+
+        const horizontalImages = [
+            {image: "res/Photos/horizontal/proposal_horizontal_1.jpg", width: null, height: null, nameColour: "white"},
+            {image: "res/Photos/horizontal/proposal_horizontal_2.jpg", width: null, height: null, nameColour: "white"},
+            {image: "res/Photos/horizontal/proposal_horizontal_3.jpg", width: null, height: null, nameColour: "white"},
+        ];
+
+        const verticalImages = [
+            {image: "res/Photos/vertical/proposal_vertical_1.jpeg", width: null, height: null, nameColour: "white"},
+            {image: "res/Photos/vertical/proposal_vertical_2.jpeg", width: null, height: null, nameColour: "white"},
+            {image: "res/Photos/vertical/proposal_vertical_3.jpeg", width: null, height: null, nameColour: "white"},
+            {image: "res/Photos/vertical/proposal_vertical_4.jpg", width: null, height: null, nameColour: "white"},
+            {image: "res/Photos/vertical/proposal_vertical_5.jpg", width: null, height: null, nameColour: "white"},
+        ];
+
+
     </script>
 </body>
 

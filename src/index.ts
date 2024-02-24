@@ -162,6 +162,7 @@ async function main() {
             incrementViewCount(invitee).then(result => console.log(`${invitee.name} has viewed ${invitee.viewCount} time(s)`))
             // res.send(clientTemplate({...invitee, token: tokenService.getToken(id)}));
             if (isSaved === null) {
+                console.log(invitee);
                 res.send(clientTemplate({...invitee, token: id}));
             }
             else if (isSaved) {

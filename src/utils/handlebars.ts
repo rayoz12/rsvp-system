@@ -10,7 +10,7 @@ Handlebars.registerHelper('json', function(this: any) {
 });
 
 Handlebars.registerHelper('isSet', function(value) {
-    return value !== null || value !== undefined;
+    return value !== null && value !== undefined;
 });
 
 Handlebars.registerHelper('not', function(this: any, value: any) {
