@@ -50,8 +50,11 @@ async function main() {
         // Seed database
         console.log("Seeding database...");
         await getInvitees();
-        const seedStr = await readFile("./db/seed.json", "utf8");
+        
+        const seedPath = process.env["SEED"] ?? "./db/seed.json";
+        const seedStr = await readFile(seedPath, "utf8");
         const seed = JSON.parse(seedStr);
+        
         const inserts = await insertInvitee(seed);
         console.log("inserted:", inserts);
         
