@@ -7,6 +7,7 @@ services:
             - "/home/ryan/docker/data/dev/rsvp-system:/rsvp-system"
         environment:
             - "DATABASE=/rsvp-system/rsvp.sqlite.db"
+            - "SEED=/rsvp-system/seed.json"
         # ports:
         #     - "3000:3000"
         networks:
