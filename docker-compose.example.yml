@@ -9,6 +9,8 @@ services:
         environment:
             - "DATABASE=/rsvp-system/rsvp.sqlite.db"
             - "SEED=/rsvp-system/seed.json"
+            - "ADMIN_USERNAME=<example>"
+            - "ADMIN_TOKEN=<example>"
         # ports:
         #     - "3000:3000"
         networks:

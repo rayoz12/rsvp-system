@@ -81,6 +81,34 @@ async function main() {
     });
 
     app.get("/admin", async (req, res) => {
+
+        // Check auth
+        const adminUsername = process.env["ADMIN_USERNAME"];
+        const adminToken = process.env["ADMIN_TOKEN"];
+        if (!adminUsername || !adminToken) {
+            console.error("ADMIN_TOKEN is not defined! Admin page is inaccessable");
+            return res.status(404).end();
+        }
+        
+        // Check if the token is attached
+        const header = req.headers.authorization;
+        if (!header) {
+            res.setHeader("WWW-Authenticate", "Basic realm=admin");
+            return res.status(401).send();
+        }
+
+        const token = atob(header.replace("Basic ", ""));
+        const [username, password] = token.split(":");
+
+        if (!username || !password) {
+            return res.status(401).send();
+        }
+
+        if (username !== adminUsername || password !== adminToken) {
+            return res.status(401).send();
+        }
+
+
         if (isDev) {
             adminTemplateStr = await readFile("./static/admin.html", "utf8");
             adminTemplate = Handlebars.compile(adminTemplateStr);
