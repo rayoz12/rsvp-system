@@ -3,7 +3,7 @@
 if [ -z ${keyID+x} ]; then echo "keyID is unset" && exit -1; fi
 if [ -z ${applicationKey+x} ]; then echo "applicationKey is unset" && exit -1; fi
 
-FILE_TO_UPLOAD="/home/ryan/docker/data/dev/rsvp-system/rsvp.sqlite.db"
+FILE_TO_UPLOAD="/home/ryan/docker/data/dev/rsvp-system/config/rsvp.sqlite.db"
 
 response=$(curl -u $keyID:$applicationKey https://api.backblazeb2.com/b2api/v3/b2_authorize_account)
 echo $response

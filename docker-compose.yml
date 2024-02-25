@@ -4,7 +4,8 @@ services:
         build: .
         container_name: rsvp
         volumes:
-            - "/home/ryan/docker/data/dev/rsvp-system:/rsvp-system"
+            - "/home/ryan/docker/data/dev/rsvp-system/config:/rsvp-system"
+            - "/home/ryan/docker/data/dev/rsvp-system/photos:/usr/src/app/static/client/photos"
         environment:
             - "DATABASE=/rsvp-system/rsvp.sqlite.db"
             - "SEED=/rsvp-system/seed.json"
