@@ -74,7 +74,7 @@ async function main() {
     let clientTemplate = Handlebars.compile(clientTemplateStr);
 
     let adminTemplateStr = await readFile("./static/admin.html", "utf8");
-    let adminTemplate = Handlebars.compile(clientTemplateStr);
+    let adminTemplate = Handlebars.compile(adminTemplateStr);
 
     app.get("/", (req, res) => {
         res.sendFile("static/client-landing.html", {root: "."});
