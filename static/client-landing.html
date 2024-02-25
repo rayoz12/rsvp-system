@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="darkreader" content="random phrase here">
+    <link rel="icon" type="image/x-icon" href="/res/favicon/favicon.ico">
     <title>Ryan & Manjusha</title>
     <link rel="stylesheet" href="res/normalise.css" type="text/css">
     <link rel="stylesheet" href="res/sakura-earthly.css" type="text/css">
@@ -12,7 +14,7 @@
         function redirect() {
             const code = document.getElementById("code");
             const value = code.value;
-            location.href += value;
+            location.href = value;
         }   
     </script>
     <style>
@@ -28,6 +30,148 @@
             --bg-vertical-image: url('res/photos/vertical/proposal_vertical_1.jpeg');
             --names-horizontal-colour: "white";
             --names-vertical-colour: "white";
+
+            /* Code Colours */
+            --code-text-colour: #FFC819;
+            --code-background-colour: #113748;
+        }
+
+        body {
+            height: 100%;
+            width: 100%;
+
+            padding: 0;
+            margin: unset;
+            max-width: unset;
+        }
+
+        .landing-container {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .cover {
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            transition: background-image 1s ease-in-out;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .names-container {
+            margin: auto;
+        }
+
+        .names {
+            padding: 10px 0;
+            margin: auto;
+        }
+
+        .code {
+            background-color: var(--code-background-colour);
+            color: var(--code-text-colour);
+
+            /* Flowers */
+            position: relative;
+            /* overflow: clip; */
+            clip-path: polygon(0 -100%, 100% -100%, 100% 100%, 0% 100%);
+        }
+
+        .code-flower {
+            position: absolute;
+            display: block;
+            max-width: 50%;
+            max-height: 50%;
+            width: auto;
+            height: auto;
+        }
+
+        .code-flower-1 {
+            top: -4%;
+            left: -4%;
+        }
+
+        .code-flower-2 {
+            bottom: 0%;
+            right: 0%;
+            transform: scale(-1, -1); /* Flip */
+            position: absolute;
+        }
+
+        .code-border {
+            margin: 25px;
+            border-style: double;
+            box-sizing: border-box;
+            height: fit-content;
+        }
+
+        .code-container {
+            height: 60vh;
+            padding-top: 3em;
+        }
+
+        input, button {
+            z-index: 5;
+        }
+
+        /* Desktop / larger screen */
+        @media screen and (min-width: 70em) {
+            .landing-container {
+                flex-direction: row
+            }
+
+            .names-container {
+                /* background-color: rgba(100, 100, 100, 0.25); */
+                margin: 0 0 50px 50px;
+                border-radius: 5px;
+                /* backdrop-filter: blur(2px); */
+                /* -webkit-backdrop-filter: blur(2px); */
+            }
+
+            .names {
+                transition: color 1s ease-in-out;
+                color: white;
+                padding: 0 15px;
+            }
+
+            .code {
+                min-width: 35em;
+            }
+
+            .code-container {
+                height: 85vh;
+                padding-top: 3em;
+            }
+        }
+
+        /* Display an arrow for the user */
+        @media screen and (max-width: 70em) {
+            .chevron {
+                margin: auto;
+                font-size: 2em;
+                padding: 60px 0;
+            }
+
+            .chevron::before {
+                border-style: solid;
+                border-width: 0.25em 0.25em 0 0;
+                content: '';
+                display: inline-block;
+                height: 0.45em;
+                left: 0.15em;
+                position: relative;
+                top: 0.15em;
+                transform: rotate(-45deg);
+                vertical-align: top;
+                width: 0.45em;
+            }
+            
+            .chevron::before {
+                /* content:"\203A"; */
+                top: 0;
+                transform: rotate(135deg);
+            }
         }
 
         @media (orientation: landscape) {
@@ -43,65 +187,32 @@
                 color: var(--names-vertical-colour);
             }
         }
-
-        body {
-            height: 100%;
-            width: 100%;
-
-            padding: 0;
-            margin: unset;
-            max-width: unset;
-        }
-
-        .cover {
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            transition: background-image 1s ease-in-out;
-        }
-
-        .names-container {
-            /* background-color: rgba(100, 100, 100, 0.25); */
-            margin: 0 0 50px 50px;
-            border-radius: 5px;
-            /* backdrop-filter: blur(2px); */
-            /* -webkit-backdrop-filter: blur(2px); */
-        }
-
-        .names {
-            transition: color 1s ease-in-out;
-            color: white;
-            padding: 0 15px;
-        }
-
-        .landing-container {
-            flex-direction: column
-        }
-
-        @media screen and (min-width: 70em) {
-            .landing-container {
-                flex-direction: row
-            }
-        }
     </style>
 </head>
 
 <body>
 
-    <div class="flex landing-container main-container size-full">
-        <div class="cover size-full flex flex-col align-start">
+    <div class="flex landing-container main-container">
+        <div class="cover flex flex-col align-start">
             <div class="flex-grow"></div>
             <div class="names-container">
                 <!-- <h1 class="names">The bitches and the boyz</h1> -->
                 <h1 class="names">Ryan & Manjusha</h1>
             </div>
+            <span class="chevron"></span>
         </div>
-        <div>
-            <form id="codeForm">
-                <p class="question">Please enter your unique code:</p>
-                <input type="text" id="code" required value="" placeholder="fflesp" />
-                <button type="submit">RSVP</button>
+        <div class="code">
+            <form id="codeForm" class="width: 100%">
+                <div class="code-border">
+                    <div class="code-container flex flex-col align-center">
+                        <p class="question">Please enter your unique code:</p>
+                        <input type="text" id="code" required value="" placeholder="fflesp" />
+                        <button type="submit">RSVP</button>
+                    </div>
+                </div>
             </form>
+            <img class="code-flower code-flower-1" src="res/flowers.png" />
+            <img class="code-flower code-flower-2" src="res/flowers.png" />
         </div>
     </div>
 

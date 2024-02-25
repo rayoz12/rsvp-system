@@ -31,7 +31,7 @@ Handlebars.registerHelper('cleanDietRequirements', function(value: string) {
 });
 
 Handlebars.registerHelper('contains', function(value: string, substring: string) {
-    if (value === null) {
+    if (!value) {
         return false;
     }
     return value.includes(substring);
