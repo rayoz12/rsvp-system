@@ -25,8 +25,60 @@
 
 <body>
     <h1 class="names">Ryan & Manjusha</h1>
-    <h2>Admin Page</h2>
+
+    <h2>Invite Someone</h2>
+    <form method="post" action="admin-invitee-add" enctype="application/x-www-form-urlencoded" target="_self">
+        <fieldset>
+            <input hidden type="text" name="token" value="{{token}}" />
+            <legend>Invite Someone</legend>
+            <div class="flex flex-row justify-around">
+                <p id="name">
+                    <label>
+                        Name:
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            required
+                        />
+                    </label>
+                </p>
+                <label>
+                    <input
+                        type="checkbox"
+                        name="plus1Enabled"
+                    />
+                    Plus 1 Enabled?
+                </label>
+                <label>
+                    <input
+                        type="checkbox"
+                        name="indianResponseEnabled"
+                    />
+                    Indian
+                </label>
+                <label>
+                    <input
+                        type="checkbox"
+                        name="nuptialsResponseEnabled"
+                    />
+                    Nuptials
+                </label>
+                <label>
+                    <input
+                        type="checkbox"
+                        name="receptionResponseEnabled"
+                    />
+                    Reception
+                </label>
+                <button type="submit">Invite</button>
+            </div>            
+        </fieldset>        
+    </form>
+
+
     
+    <h2>Admin Page</h2>
     <div class="flex flex-row align-center" style="gap: 20px">
         <label for="search">Search: </label>
         <input type="text" id="search" class="search flex-grow" />

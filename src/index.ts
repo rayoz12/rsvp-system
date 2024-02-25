@@ -49,15 +49,30 @@ async function main() {
     if (process.argv.includes("--seed")) {
         // Seed database
         console.log("Seeding database...");
-        await getInvitees();
+        const invitees = await getInvitees();
+        const inviteeNames = invitees.map(it => it.name);
         
         const seedPath = process.env["SEED"] ?? "./db/seed.json";
         const seedStr = await readFile(seedPath, "utf8");
         const seed = JSON.parse(seedStr);
+
+        const filtered = seed.filter((it: any) => {
+            if (inviteeNames.includes(it.name)) {
+                console.warn("Name already exists, ignoring: ", it.name);
+                return false;
+            }
+            else {
+                return true;
+            }
+        });
         
-        const inserts = await insertInvitee(seed);
-        console.log("inserted:", inserts);
-        
+        if (filtered.length > 0) {
+            const inserts = await insertInvitee(filtered);
+            console.log("inserted:", inserts);
+        }
+        else {
+            console.log("Nothing to insert");
+        }        
         process.exit();
     }
 
@@ -115,7 +130,44 @@ async function main() {
         }
 
         const invitees = await getInvitees();
-        res.send(adminTemplate({invitees}));
+        res.send(adminTemplate({token: password, invitees}));
+    });
+
+    app.post("/admin-invitee-add", async (req, res) => {
+        // console.log(req.body);
+        const inviteeRes: InviteeResponse = req.body;
+        const token = inviteeRes.token;
+
+        const adminUsername = process.env["ADMIN_USERNAME"];
+        const adminToken = process.env["ADMIN_TOKEN"];
+        if (!adminUsername || !adminToken) {
+            console.error("ADMIN_TOKEN is not defined! Admin page is inaccessable");
+            return res.status(404).end();
+        }
+
+        if (token !== adminToken) {
+            return res.status(401).send();
+        }
+
+        const newInvitee = req.body;
+        if (!newInvitee.name) {
+            return res.status(400).send("Name is missing!");
+        }
+
+        const inviteeObj = {
+            name: newInvitee.name,
+            plus1Enabled: newInvitee.plus1Enabled === "on",
+            indianResponseEnabled: newInvitee.indianResponseEnabled === "on",
+            nuptialsResponseEnabled: newInvitee.nuptialsResponseEnabled === "on",
+            receptionResponseEnabled: newInvitee.receptionResponseEnabled === "on"
+        };
+        console.log(inviteeObj);
+
+        const invitee = await insertInvitee([inviteeObj]);
+
+        console.log(invitee);
+
+        res.redirect("/admin");
     });
 
     app.post("/invitee-response", async (req, res) => {
@@ -124,13 +176,7 @@ async function main() {
 
         const inviteeRes: InviteeResponse = req.body;
 
-        // const token = tokenService.getToken(body.token);
         const id = inviteeRes.token;
-        // const invitee = await getInvitee(id);
-        // if (!invitee) {
-        //     res.status(404).sendFile("static/client-not-found.html", {root: "."});
-        //     return;
-        // }
 
         let dietaryRequirements = "";
         if (inviteeRes.dietaryRequirementsVegetarian) {
