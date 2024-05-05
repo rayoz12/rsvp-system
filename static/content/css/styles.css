@@ -23,15 +23,14 @@
 
 .headings {
     font-family: "Satisfy", Verdana, Geneva, Tahoma, sans-serif;
-    color: #FFC819;
+    /* color: #FFC819; */
+    color: black;
     font-size: 3em;
-    width: fit-content;
     text-decoration: underline;
+    text-align: center;
+    width: 100%;
     /* -webkit-text-stroke: 0.5px rgb(189, 189, 189); */
-}
-
-div#map {
-    height: 700px;
+    /* text-shadow: black 1px 1px; */
 }
 
 @media (min-width: 768px) {
@@ -39,3 +38,12 @@ div#map {
         font-size: 4em;
     }
 }
+
+.heading-small {
+    font-size: 3em;
+}
+
+div#map {
+    height: 700px;
+}
+
