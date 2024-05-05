@@ -9,6 +9,7 @@
     "start": "node --env-file=.env --loader ts-node/esm src/index.ts",
     "start-express-debug": "set DEBUG=express:* & node --env-file=.env --loader ts-node/esm src/index.ts",
     "generate": "drizzle-kit generate:sqlite --out drizzle --schema src/db/db.ts",
+    "tailwind-watch": "tailwindcss -i .\\static\\content\\css\\styles.css -o .\\static\\content\\css\\output.css --watch",
     "build": "tsc"
   },
   "keywords": [],
@@ -18,11 +19,12 @@
     "@types/better-sqlite3": "^7.6.9",
     "@types/express": "^4.17.21",
     "drizzle-kit": "^0.20.14",
+    "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "better-sqlite3": "^9.4.0",
+    "better-sqlite3": "^9.6.0",
     "drizzle-orm": "^0.29.3",
     "express": "^4.18.2",
     "handlebars": "^4.7.8"

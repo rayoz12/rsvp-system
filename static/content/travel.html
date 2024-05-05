@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="darkreader" content="random phrase here">
+
+
+    <meta property="og:title" content="Ryan & Manjusha" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ryanandmanjusha.com/" />
+    <meta property="og:image" content="https://ryanandmanjusha.com/res/socials/names.png" />
+
+    <link rel="icon" type="image/x-icon" href="/res/favicon/favicon.ico">
+    <title>Ryan & Manjusha</title>
+    <link rel="stylesheet" href="/res/normalise.css" type="text/css">
+    <link rel="stylesheet" href="/info/css/output.css" type="text/css">
+
+    <link rel="stylesheet" href="/info/lib/leaflet/leaflet.css" />
+    <script src="/info/lib/leaflet/leaflet.js"></script>
+
+    <script src="/info/js/locations.js"></script>
+
+    <style>
+
+    </style>
+
+</head>
+<body class="bg-pastel-cream-lighter">
+    <nav class="flex justify-between items-center p-4 md:hidden bg-secondary">
+        <!--Hamburger menu icon svg to trigger the slide-in menu when clicked-->
+        <div onclick="openNav()">
+          <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="18.853" height="12" viewBox="0 0 18.853 12">
+            <g id="Icon_feather-menu" data-name="Icon feather-menu" transform="translate(-4.5 -8)">
+              <path id="Path_3" data-name="Path 3" d="M4.5,18H23.353" transform="translate(0 -4)" fill="none" stroke="#fff" stroke-linejoin="round" stroke-width="2" />
+              <path id="Path_4" data-name="Path 4" d="M4.5,9H23.353" transform="translate(0)" fill="none" stroke="#fff" stroke-linejoin="round" stroke-width="2" />
+              <path id="Path_5" data-name="Path 5" d="M4.5,27H23.353" transform="translate(0 -8)" fill="none" stroke="#fff" stroke-linejoin="round" stroke-width="2" />
+            </g>
+          </svg>
+        </div>
+
+        <!--background overlay element, will close navbar when clicked-->
+        <div onclick="exitNav()" id="sideBar" class="fixed top-0 left-0 bg-transparent w-0 h-full overflow-x-hidden duration-500 z-10">
+          <!--navigation menu box-->
+          <div id="sideNav" class="fixed top-0 w-0 bg-secondary text-white h-full flex flex-col justify-start overflow-x-hidden duration-500 font-bold z-50">
+            <!--exit icon, will close navbar when clicked-->
+            <a href="javascript:void(0)" onclick="exitNav()" class="text-3xl absolute top-0 right-0 mr-3">&times;</a>
+            <h1 class="names text-white" style="font-size: 2em;">Ryan & Manjusha</h1>
+            <!--menu links-->
+            <ul class="flex flex-col items-center text-2xl">
+                <li class="p-2"><a href="/info">Home</a></li>
+                <li class="p-2"><a href="/info/party.html">Wedding Party</a></li>
+                <li class="p-2"><a href="/info/events.html">Events</a></li>
+                <li class="p-2"><a class="border-b-primary border-b-4 rounded-sm" href="/info/travel.html">Travel</a></li>
+                <li class="p-2"><a href="/info/where_to_stay.html">Where to stay</a></li>
+                <li class="p-2"><a href="/info/photos.html">Photos</a></li>
+                <li class="p-2"><a href="/info/faqs.html">FAQs</a></li>
+                <li class="p-2"><a href="/">RSVP</a></li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    <div class="flex flex-col items-center bg-secondary">
+        <h1 class="names text-white">Ryan & Manjusha</h1>
+        <div class="w-4/6 flex flex-row justify-around py-5 text-white text-2xl md:text-base">
+            <a class="hidden md:inline" href="/info">Home</a>
+            <a class="hidden md:inline" href="/info/party.html">Wedding Party</a>
+            <a class="hidden md:inline" href="/info/events.html">Events</a>
+            <a class="border-b-primary border-b-4 rounded-sm" href="/info/travel.html">Travel</a>
+            <a class="hidden md:inline" href="/info/where_to_stay.html">Where to stay</a>
+            <a class="hidden md:inline" href="/info/photos.html">Photos</a>
+            <a class="hidden md:inline" href="/info/faqs.html">FAQs</a>
+            <a class="hidden md:inline" href="/">RSVP</a>
+        </div>
+    </div>
+
+    <div class="flex flex-col items-center w-full">
+        <div class="md:w-4/6">
+            <h1 class="headings">Getting to Oatlands Estate</h1>
+            <p>We recommend </p>
+        </div>
+    </div>
+</body>
+</html>

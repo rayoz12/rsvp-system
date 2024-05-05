@@ -83,6 +83,7 @@ async function main() {
     app.use(express.json());
     app.use(express.urlencoded({extended: true}));
     app.use("/res", express.static("static/client"));
+    app.use("/info", express.static("static/content"));
 
     // Templates
     let clientTemplateStr = await readFile("./static/client.html", "utf8");
@@ -93,6 +94,10 @@ async function main() {
 
     app.get("/", (req, res) => {
         res.sendFile("static/client-landing.html", {root: "."});
+    });
+
+    app.get("/info", (req, res) => {
+        res.sendFile("static/content/index.html", {root: "."});
     });
 
     app.get("/admin", async (req, res) => {

@@ -4,9 +4,10 @@ node_modules
 build/
 db/seed.json
 db/people.md
+db/seed.test.json
+db/seed.*
 backup/.env
 backup/keys.txt
 backup/.b2
 static/client/photos
 docker-compose.yml
-db/seed.test.json

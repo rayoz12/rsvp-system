@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "Murottal";
+    src: url(/res/Murottal.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Satisfy";
+    src: url(/res/Satisfy-Regular.ttf) format("truetype");
+}
+
+.names {
+    /* font-family: "Murottal", Verdana, Geneva, Tahoma, sans-serif; */
+    /* font-size: 8em; */
+
+    font-family: "Satisfy", Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 5em;
+    text-align: center;
+}
+
+.headings {
+    font-family: "Satisfy", Verdana, Geneva, Tahoma, sans-serif;
+    color: #FFC819;
+    font-size: 3em;
+    width: fit-content;
+    text-decoration: underline;
+    /* -webkit-text-stroke: 0.5px rgb(189, 189, 189); */
+}
+
+div#map {
+    height: 700px;
+}
+
+@media (min-width: 768px) {
+    .headings {
+        font-size: 4em;
+    }
+}
