@@ -28,6 +28,7 @@ steps:
   commands:
     - sleep 5 # give docker enough time to start
     - cd /rsvp
+    - docker compose down
     - docker compose up -d --build
 
 volumes:
