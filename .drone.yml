@@ -9,7 +9,7 @@ steps:
 - name: test
   image: docker:dind
   volumes:
-  - name: docker.sock
+  - name: dockersock
     path: /var/run
   commands:
     - sleep 5 # give docker enough time to start
@@ -20,5 +20,9 @@ services:
   image: docker:dind
   privileged: true
   volumes:
-    - name: docker.sock
+    - name: dockersock
       path: /var/run
+
+volumes:
+- name: dockersock
+  temp: {}
