@@ -15,7 +15,7 @@ steps:
   commands:
     - cd /rsvp
     - git fetch
-    - git checkout $DRONE_COMMIT
+    - git checkout $DRONE_COMMIT_BRANCH
 
 - name: "Build and Deploy"
   image: docker:dind
