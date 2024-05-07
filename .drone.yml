@@ -6,16 +6,31 @@ clone:
   disable: true
 
 steps:
-- name: test
+- name: clone
+  image: alpine/git
+  volumes:
+    - name: rsvp
+      path: /rsvp
+  commands:
+    - cd /rsvp
+    - git fetch
+    - git checkout $DRONE_COMMIT
+
+- name: "Build and Deploy"
   image: docker:dind
   volumes:
-  - name: dockersock
-    path: /var/run/docker.sock
+    - name: dockersock
+      path: /var/run/docker.sock
+    - name: rsvp
+      path: /rsvp
   commands:
     - sleep 5 # give docker enough time to start
-    - docker ps -a
+    - docker compose up -d --build
 
 volumes:
 - name: dockersock
   host:
     path: /var/run/docker.sock
+- name: rsvp
+  host:
+    path: /home/ryan/docker/docker/dev/rsvp-system
