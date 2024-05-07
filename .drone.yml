@@ -8,6 +8,7 @@ clone:
 steps:
 - name: clone
   image: alpine/git
+  user: "1000"
   volumes:
     - name: rsvp
       path: /rsvp
