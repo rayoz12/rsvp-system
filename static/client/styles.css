@@ -45,6 +45,7 @@
 .decorated{
     overflow: hidden;
     text-align: center;
+    height: 50px;
 }
 .decorated > span{
     position: relative;
@@ -88,11 +89,11 @@
 .justify-evenly { justify-content: space-evenly; }
 
 /* cross axis */
-.align-start { align-items: flex-start; }
-.align-end { align-items: flex-end; }
-.align-center { align-items: center; }
-.align-baseline { align-items: baseline; }
-.align-stretch { align-items: stretch; }
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.items-center { align-items: center; }
+.items-baseline { align-items: baseline; }
+.items-stretch { align-items: stretch; }
 
 /* grow/shrink */
 .flex-grow { flex-grow: 1; }

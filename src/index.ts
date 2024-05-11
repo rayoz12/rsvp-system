@@ -2,8 +2,9 @@ import { readFile } from "fs/promises";
 import express from "express"
 import Handlebars from "handlebars";
 import tokenService from "./utils/tokens.js";
-import { RSVPResponse, getInvitee, getInvitees, incrementViewCount, insertInvitee, invitationResponse, isValidInviteeCode, updateInvitee } from "./db/db.js";
+import { Invitee, InviteePlus1, RSVPResponse, getInvitee, getInvitees, incrementViewCount, insertInvitee, invitationResponse, isValidInviteeCode, updateInvitee } from "./db/db.js";
 import { handlebarsInit } from "./utils/handlebars.js";
+import { ResponseState, getResponseState } from "./utils/inviteeResponse.js";
 
 const port = process.env["PORT"] || 3000;
 const isDev = process.env["NODE_ENV"] !== "production";
@@ -162,6 +163,7 @@ async function main() {
         const inviteeObj = {
             name: newInvitee.name,
             plus1Enabled: newInvitee.plus1Enabled === "on",
+            plus1Link: newInvitee.plus1Link,
             indianResponseEnabled: newInvitee.indianResponseEnabled === "on",
             nuptialsResponseEnabled: newInvitee.nuptialsResponseEnabled === "on",
             receptionResponseEnabled: newInvitee.receptionResponseEnabled === "on"
@@ -220,6 +222,13 @@ async function main() {
         }
     });
 
+    function getCompletionStatusForInvitee(invitee: InviteePlus1) {
+        return {
+            inviteeResponseStatus: getResponseState(invitee),
+            plus1ResponseStatus: invitee.plus1Invitee ? getResponseState(invitee.plus1Invitee) : undefined
+        };
+    }
+
     app.get("/:id", async (req, res) => {
         const {id: idRaw} = req.params;
         const id = idRaw.toLowerCase();
@@ -241,11 +250,24 @@ async function main() {
 
         const invitee = await getInvitee(id);
         if (invitee) {
-            incrementViewCount(invitee).then(result => console.log(`${invitee.name} has viewed ${invitee.viewCount} time(s)`))
             // res.send(clientTemplate({...invitee, token: tokenService.getToken(id)}));
             if (isSaved === null) {
                 console.log(invitee);
-                res.send(clientTemplate({...invitee, token: id}));
+                const statusNotif: {notification?: string, warn?: string} = {};
+                
+                const completionStatus = getCompletionStatusForInvitee(invitee);
+                switch (completionStatus.inviteeResponseStatus) {
+                    case ResponseState.COMPLETE:
+                        statusNotif.notification = "You've completed your RSVP";
+                        break;
+                    case ResponseState.INCOMPLETE:
+                        break;
+                    case ResponseState.PARTIAL:
+                        // statusNotif.warn = "You haven't yet finished your RSVP!";
+                }
+                const templateParams = {...invitee, token: id, ...statusNotif, ...completionStatus};
+                console.log(templateParams);
+                res.send(clientTemplate(templateParams));
             }
             else if (isSaved) {
                 res.send(clientTemplate({...invitee, token: id, notification: "Saved"}));
@@ -253,6 +275,10 @@ async function main() {
             else if (!isSaved) {
                 res.send(clientTemplate({...invitee, token: id, error: "Failed to save"}));
             }
+
+            // @ts-ignore
+            delete invitee.plus1Invitee;
+            incrementViewCount(invitee).then(result => console.log(`${invitee.name} has viewed ${invitee.viewCount} time(s)`))
         }
         else {
             res.status(404).sendFile("static/client-not-found.html", {root: "."});

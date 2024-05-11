@@ -36,6 +36,13 @@
       "when": 1708415838065,
       "tag": "0004_far_omega_red",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1715336676346,
+      "tag": "0005_red_forge",
+      "breakpoints": true
     }
   ]
 }

@@ -18,6 +18,18 @@ Handlebars.registerHelper('not', function(this: any, value: any) {
     return !value;
 });
 
+Handlebars.registerHelper('isResponseComplete', function(this: any, value: any) {
+    return value == 'COMPLETE';
+});
+
+Handlebars.registerHelper('isResponsePartial', function(this: any, value: any) {
+    return value == 'PARTIAL';
+});
+
+Handlebars.registerHelper('isResponseIncomplete', function(this: any, value: any) {
+    return value == 'INCOMPLETE';
+});
+
 Handlebars.registerHelper('cleanDietRequirements', function(value: string) {
     if (!value) {
         return ""

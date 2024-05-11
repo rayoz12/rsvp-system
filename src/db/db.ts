@@ -2,7 +2,7 @@ import Database from 'better-sqlite3';
 import { drizzle } from 'drizzle-orm/better-sqlite3';
 import { migrate } from 'drizzle-orm/better-sqlite3/migrator';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { and, eq } from 'drizzle-orm';
+import { and, eq, relations } from 'drizzle-orm';
 
 function getRandomArbitrary(min: number, max: number) {
     return Math.floor(Math.random() * (max - min) + min);
@@ -26,6 +26,7 @@ export const invitees = sqliteTable('invitees', {
     name: text('name').notNull(),
     viewCount: integer("view_count").notNull().default(0),
     plus1Enabled: integer("plus1_enabled", {mode: 'boolean'}).notNull(), // If this user has the option to bring a plus1
+    plus1Link: text("plus1_link"),
     indianResponseEnabled: integer("indian_response_enabled", {mode: 'boolean'}).notNull(), // If this user has the option to come to the indian wedding
     nuptialsResponseEnabled: integer("nuptials_response_enabled", {mode: 'boolean'}).notNull(), // If this user has the option to come to the nuptials
     receptionResponseEnabled: integer("reception_response_enabled", {mode: 'boolean'}).notNull(), // If this user has the option to come to the reception
@@ -39,14 +40,22 @@ export const invitees = sqliteTable('invitees', {
     extraSong: text("extra_song")
 });
 
+export const plus1LinkRelation = relations(invitees, ({one}) => ({
+    plus1Invitee: one(invitees, {
+        fields: [invitees.plus1Link],
+        references: [invitees.id]
+    })
+}));
+
 export type Invitee = typeof invitees.$inferSelect; // return type when queried
+export type InviteePlus1 = NonNullable<Awaited<ReturnType<typeof getInvitee>>>
 export type NewInvitee = typeof invitees.$inferInsert; // insert type
-export type RSVPResponse = Omit<Invitee, "id" | "name" | "viewCount" | "plus1Enabled" | "indianResponseEnabled" | "nuptialsResponseEnabled" | "receptionResponseEnabled" >
+export type RSVPResponse = Omit<Invitee, "id" | "name" | "viewCount" | "plus1Enabled" | "indianResponseEnabled" | "nuptialsResponseEnabled" | "receptionResponseEnabled" | "plus1Link">
 
 const databasePath = process.env["DATABASE"] || "rsvp.sqlite.db"
 
 const sqlite = new Database(databasePath);
-const db = drizzle(sqlite);
+const db = drizzle(sqlite, {schema: {invitees, plus1LinkRelation}});
 migrate(db, { migrationsFolder: './drizzle' });
 
 
@@ -54,13 +63,16 @@ export const getInvitees = () => {
     return db.select().from(invitees);
 }
 
-export const getInvitee = async (inviteeId: string) => {
-    const result = await db.select().from(invitees).where(eq(invitees.id, inviteeId)).limit(1);
-    if (result.length === 0) {
+export async function getInvitee(inviteeId: string) {
+    const result = await db.query.invitees.findFirst({
+        with: { plus1Invitee: true },
+        where: (invitees, { eq }) => eq(invitees.id, inviteeId)
+    });
+    if (result === undefined) {
         return null;
     }
     else {
-        return result[0];
+        return result;
     }
 }
 
@@ -68,14 +80,12 @@ export const insertInvitee = (values: NewInvitee | NewInvitee[]) => {
     return db.insert(invitees).values(values as any).returning({ id: invitees.id });
 }
 
-export const updateInvitee = (value: Invitee) => {
-    
+export const updateInvitee = (value: Invitee) => {    
     return db.update(invitees).set(value)
     .where(
         and(
             eq(invitees.id, value.id),
-            eq(invitees.name, value.name),
-            eq(invitees.plus1Enabled, value.plus1Enabled)
+            eq(invitees.name, value.name)
         )
     );
 }
