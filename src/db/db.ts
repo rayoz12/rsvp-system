@@ -123,6 +123,8 @@ export const invitationResponse = async (
     delete response.viewCount;
     // @ts-expect-error
     delete response.plus1Enabled;
+    // @ts-expect-error
+    delete response.plus1Invitee;
 
     const invitee = await getInvitee(inviteeId);
     if (!invitee) {
@@ -130,6 +132,9 @@ export const invitationResponse = async (
     }
 
     const updated = {...invitee, ...response};
+
+    // @ts-expect-error
+    delete updated.plus1Invitee;
 
     console.log("Updating Invitee:", updated);
     // return;
