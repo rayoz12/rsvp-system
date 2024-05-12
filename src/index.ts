@@ -212,6 +212,7 @@ async function main() {
         }
         catch (e) {
             const error = e as Error;
+            console.error(e);
             if (error.message === "Invitee not Found") {
                 res.status(404).sendFile("static/client-not-found.html", {root: "."});
                 return;
