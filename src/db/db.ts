@@ -60,7 +60,7 @@ migrate(db, { migrationsFolder: './drizzle' });
 
 
 export const getInvitees = () => {
-    return db.select().from(invitees);
+    return db.query.invitees.findMany({with: { plus1Invitee: true }});
 }
 
 export async function getInvitee(inviteeId: string) {

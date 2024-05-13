@@ -223,6 +223,63 @@ async function main() {
         }
     });
 
+    // app.get("/message/:id", async (req, res) => {
+    //     const {id: idRaw} = req.params;
+    //     const id = idRaw.toLowerCase();
+    //     if (!id) {
+    //         throw new Error("id not passed");
+    //     }
+    //     console.log(id);
+
+    //     let isSavedStr: string | undefined = req.query.saved as string | undefined;
+    //     let isSaved = null;
+    //     if (isSavedStr) {
+    //         isSaved = stringToBool(isSavedStr);
+    //     }
+
+    //     if (isDev) {
+    //         clientTemplateStr = await readFile("./static/message.html", "utf8");
+    //         clientTemplate = Handlebars.compile(clientTemplateStr);
+    //     }
+
+    //     const invitee = await getInvitee(id);
+    //     if (invitee) {
+    //         // res.send(clientTemplate({...invitee, token: tokenService.getToken(id)}));
+    //         if (isSaved === null) {
+    //             console.log(invitee);
+    //             const statusNotif: {notification?: string, warn?: string} = {};
+                
+    //             const completionStatus = getCompletionStatusForInvitee(invitee);
+    //             switch (completionStatus.inviteeResponseStatus) {
+    //                 case ResponseState.COMPLETE:
+    //                     statusNotif.notification = "You've completed your RSVP";
+    //                     break;
+    //                 case ResponseState.INCOMPLETE:
+    //                     break;
+    //                 case ResponseState.PARTIAL:
+    //                     // statusNotif.warn = "You haven't yet finished your RSVP!";
+    //             }
+    //             invitee.name = invitee.name.split(" ")[0];
+    //             const templateParams = {...invitee, token: id, ...statusNotif, ...completionStatus};
+    //             console.log(templateParams);
+    //             res.send(clientTemplate(templateParams));
+    //         }
+    //         else if (isSaved) {
+    //             res.send(clientTemplate({...invitee, token: id, notification: "Saved"}));
+    //         }
+    //         else if (!isSaved) {
+    //             res.send(clientTemplate({...invitee, token: id, error: "Failed to save"}));
+    //         }
+
+    //         // @ts-ignore
+    //         delete invitee.plus1Invitee;
+    //         // incrementViewCount(invitee).then(result => console.log(`${invitee.name} has viewed ${invitee.viewCount} time(s)`))
+    //     }
+    //     else {
+    //         res.status(404).sendFile("static/client-not-found.html", {root: "."});
+    //     }
+    // });
+
     function getCompletionStatusForInvitee(invitee: InviteePlus1) {
         return {
             inviteeResponseStatus: getResponseState(invitee),

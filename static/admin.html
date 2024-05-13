@@ -67,6 +67,16 @@
                     />
                     Plus 1 Enabled?
                 </label>
+                <p id="plus1Link">
+                    <label>
+                        Plus 1 Link id:
+                        <input
+                            type="text"
+                            id="plus1Link"
+                            name="plus1Link"
+                        />
+                    </label>
+                </p>
                 <label>
                     <input
                         type="checkbox"
@@ -113,6 +123,7 @@
                 <th rowspan="2">Plus 1 Enabled?</th>
                 <th rowspan="2">Plus 1?</th>
                 <th rowspan="2">Plus 1 Name</th>
+                <th rowspan="2">Plus 1 Link</th>
                 <th rowspan="2">Dietary Requirements</th>
                 <th rowspan="2">Extra Song</th>
             </tr>
@@ -130,7 +141,8 @@
                 <tr>
                     <td>{{this.name}}</td>
                     <td>{{this.id}}</td>
-                    <td><a href="/{{this.id}}">link</a></td>
+                    <!-- <td><a target="_blank" href="/message/{{this.id}}">link</a></td> -->
+                    <td><a target="_blank" href="/{{this.id}}">link</a></td>
                     <td>{{>boolToYN this.indianResponseEnabled}}</td>
                     <td>{{>boolToYN this.nuptialsResponseEnabled}}</td>
                     <td>{{>boolToYN this.receptionResponseEnabled}}</td>
@@ -143,6 +155,7 @@
                     <td>{{>boolToYN this.plus1Enabled}}</td>
                     <td>{{>boolToYN this.plus1}}</td>
                     <td>{{#if this.plus1Name}} {{this.plus1Name}} {{else}} <em>None</em> {{/if}}</td>
+                    <td>{{#if this.plus1Invitee}} {{this.plus1Invitee.name}} {{else}} <em>None</em> {{/if}}</td>
                     <td>{{#if this.dietaryRequirements}} {{this.dietaryRequirements}} {{else}} <em>None</em> {{/if}}</td>
                     <td>{{#if this.extraSong}} {{this.extraSong}} {{else}} <em>None</em> {{/if}}</td>
                 </tr>
