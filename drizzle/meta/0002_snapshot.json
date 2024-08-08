@@ -1,8 +1,6 @@
 {
-  "version": "5",
+  "version": "6",
   "dialect": "sqlite",
-  "id": "9d8ef9ae-8924-4f16-b949-5ae786ebca9a",
-  "prevId": "a9ff4543-d8cc-42dd-96f4-b98ed430c9f9",
   "tables": {
     "invitees": {
       "name": "invitees",
@@ -87,10 +85,11 @@
   },
   "enums": {},
   "_meta": {
-    "schemas": {},
     "tables": {},
     "columns": {
       "\"invitees\".\"response\"": "\"invitees\".\"nuptials_response\""
     }
-  }
+  },
+  "id": "9d8ef9ae-8924-4f16-b949-5ae786ebca9a",
+  "prevId": "a9ff4543-d8cc-42dd-96f4-b98ed430c9f9"
 }

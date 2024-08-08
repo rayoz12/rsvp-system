@@ -15,8 +15,8 @@
     <link rel="icon" type="image/x-icon" href="/res/favicon/favicon.ico">
     <title>Ryan & Manjusha</title>
     <link rel="stylesheet" href="/res/normalise.css" type="text/css">
+    <link rel="stylesheet" href="/common/css/styles.css" type="text/css">
     <link rel="stylesheet" href="/res/sakura-earthly.css" type="text/css">
-    <link rel="stylesheet" href="/res/styles.css" type="text/css">
 
     <script src="/res/fuse.js"></script>
 
@@ -38,6 +38,7 @@
         background-color: white;
     }
     </style>
+
 </head>
 
 <body>
@@ -47,8 +48,9 @@
     <form method="post" action="admin-invitee-add" enctype="application/x-www-form-urlencoded" target="_self">
         <fieldset>
             <input hidden type="text" name="token" value="{{token}}" />
+            <input hidden type="text" name="groups" id="groupsField" />
             <legend>Invite Someone</legend>
-            <div class="flex flex-row justify-around">
+            <div class="flex flex-col lg:flex-row justify-around">
                 <p id="name">
                     <label>
                         Name:
@@ -98,8 +100,20 @@
                     />
                     Reception
                 </label>
-                <button type="submit">Invite</button>
+                <label>
+                    Group:
+                    <input
+                        type="text"
+                        id="group"
+                    />
+                    <button id="groupAdd" type="button">+</button>
+                </label>
+                <div>
+                    <label>Groups</label>
+                    <div id="groups" class="pb-5"></div>
+                </div>
             </div>            
+            <button type="submit" class="size-full">Invite</button>
         </fieldset>        
     </form>
 
@@ -126,6 +140,7 @@
                 <th rowspan="2">Plus 1 Link</th>
                 <th rowspan="2">Dietary Requirements</th>
                 <th rowspan="2">Extra Song</th>
+                <th rowspan="2">Groups</th>
             </tr>
             <tr>
                 <th>Indian</th>
@@ -139,7 +154,7 @@
         <tbody>
             {{#each invitees}}
                 <tr>
-                    <td>{{this.name}}</td>
+                    <td id="{{this.id}}">{{this.name}}</td>
                     <td>{{this.id}}</td>
                     <!-- <td><a target="_blank" href="/message/{{this.id}}">link</a></td> -->
                     <td><a target="_blank" href="/{{this.id}}">link</a></td>
@@ -155,9 +170,10 @@
                     <td>{{>boolToYN this.plus1Enabled}}</td>
                     <td>{{>boolToYN this.plus1}}</td>
                     <td>{{#if this.plus1Name}} {{this.plus1Name}} {{else}} <em>None</em> {{/if}}</td>
-                    <td>{{#if this.plus1Invitee}} {{this.plus1Invitee.name}} {{else}} <em>None</em> {{/if}}</td>
+                    <td>{{#if this.plus1Invitee}} <a href="#{{this.plus1Invitee.id}}">{{this.plus1Invitee.name}}</a> {{else}} <em>None</em> {{/if}}</td>
                     <td>{{#if this.dietaryRequirements}} {{this.dietaryRequirements}} {{else}} <em>None</em> {{/if}}</td>
                     <td>{{#if this.extraSong}} {{this.extraSong}} {{else}} <em>None</em> {{/if}}</td>
+                    <td>{{this.groups}}</td>
                 </tr>
             {{/each}}
         </tbody>
@@ -165,11 +181,43 @@
     <script>
 
         const search = document.getElementById("search");
-        search.addEventListener("change");
+        search.addEventListener("change", (event) => {});
 
-        function search() {
-            
+        // groups
+        const groups = [];
+        const groupsInput = document.getElementById("group");
+        const groupsAdd = document.getElementById("groupAdd");
+        const groupsOut = document.getElementById("groups");
+        const groupsField = document.getElementById("groupsField");
+
+        groupsField.value = groups.join(",");
+
+        function renderGroups() {
+            groupsField.value = groups.join(",");
+            const badges = groups.map((it, index) => `<span class="badge rounded-md bg-purple-50 px-2 py-1 m-2 font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10 cursor-pointer select-none" onclick="deleteGroup(${index})" title="Click to delete">${it}</span>`);
+            groupsOut.innerHTML = badges.join("");
         }
+
+        function deleteGroup(i) {
+            groups.splice(i, 1);
+            renderGroups();
+        }
+
+        groupsAdd.addEventListener("click", (event) => {
+            const newGroup = groupsInput.value;
+            if (!newGroup) {
+                return;
+            }
+            if (groups.includes(newGroup)) {
+                return;
+            }
+            console.log(newGroup);
+            groups.push(newGroup);
+            groupsInput.value = "";
+
+            renderGroups();
+        });
+
     </script>
 </body>
 

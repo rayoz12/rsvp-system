@@ -1,6 +1,8 @@
 {
   "version": "6",
   "dialect": "sqlite",
+  "id": "cf5ee78c-690a-4168-92d5-7b565196d78b",
+  "prevId": "c6aaf7b8-f912-465a-aa5b-1dd29f32731c",
   "tables": {
     "invitees": {
       "name": "invitees",
@@ -62,6 +64,14 @@
           "notNull": true,
           "autoincrement": false
         },
+        "groups": {
+          "name": "groups",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(json_array())"
+        },
         "indian_response": {
           "name": "indian_response",
           "type": "integer",
@@ -120,9 +130,11 @@
   },
   "enums": {},
   "_meta": {
+    "schemas": {},
     "tables": {},
     "columns": {}
   },
-  "id": "c6aaf7b8-f912-465a-aa5b-1dd29f32731c",
-  "prevId": "6c8ffbe8-600a-479b-b710-24c10b8126ed"
+  "internal": {
+    "indexes": {}
+  }
 }

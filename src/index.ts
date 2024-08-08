@@ -2,9 +2,10 @@ import { readFile } from "fs/promises";
 import express from "express"
 import Handlebars from "handlebars";
 import tokenService from "./utils/tokens.js";
-import { Invitee, InviteePlus1, RSVPResponse, getInvitee, getInvitees, incrementViewCount, insertInvitee, invitationResponse, isValidInviteeCode, updateInvitee } from "./db/db.js";
+import { InviteePlus1, getInvitee, getInvitees, incrementViewCount, insertInvitee, invitationResponse, isValidInviteeCode, updateInvitee } from "./db/db.js";
 import { handlebarsInit } from "./utils/handlebars.js";
 import { ResponseState, getResponseState } from "./utils/inviteeResponse.js";
+import { RSVPResponse } from "./db/schema.js";
 
 const port = process.env["PORT"] || 3000;
 const isDev = process.env["NODE_ENV"] !== "production";
@@ -19,7 +20,8 @@ interface InviteeResponse {
     dietaryRequirementsVegetarian?: 'on',
     dietaryRequirementsVegan?: 'on',
     dietaryRequirements?: string,
-    extraSong?: string
+    extraSong?: string,
+    groups: string
 }
 
 const YesNoToBool = (text?: string) => {
@@ -85,6 +87,7 @@ async function main() {
     app.use(express.urlencoded({extended: true}));
     app.use("/res", express.static("static/client"));
     app.use("/info", express.static("static/content"));
+    app.use("/common", express.static("static/common"));
 
     // Templates
     let clientTemplateStr = await readFile("./static/client.html", "utf8");
@@ -141,6 +144,7 @@ async function main() {
 
     app.post("/admin-invitee-add", async (req, res) => {
         // console.log(req.body);
+
         const inviteeRes: InviteeResponse = req.body;
         const token = inviteeRes.token;
 
@@ -166,7 +170,8 @@ async function main() {
             plus1Link: newInvitee.plus1Link,
             indianResponseEnabled: newInvitee.indianResponseEnabled === "on",
             nuptialsResponseEnabled: newInvitee.nuptialsResponseEnabled === "on",
-            receptionResponseEnabled: newInvitee.receptionResponseEnabled === "on"
+            receptionResponseEnabled: newInvitee.receptionResponseEnabled === "on",
+            groups: newInvitee.groups.split(",")
         };
         console.log(inviteeObj);
 
@@ -203,7 +208,7 @@ async function main() {
             plus1: YesNoToBool(inviteeRes.plus1),
             plus1Name: inviteeRes.plus1Name ?? null,
             dietaryRequirements: dietaryRequirements === "" ? null : dietaryRequirements,
-            extraSong: inviteeRes.extraSong ?? null,
+            extraSong: inviteeRes.extraSong ?? null
         }
         
         try {

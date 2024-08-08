@@ -1,8 +1,6 @@
 {
-  "version": "5",
+  "version": "6",
   "dialect": "sqlite",
-  "id": "000322e7-0842-4b21-b1a9-92121c28df7a",
-  "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "invitees": {
       "name": "invitees",
@@ -66,8 +64,9 @@
   },
   "enums": {},
   "_meta": {
-    "schemas": {},
     "tables": {},
     "columns": {}
-  }
+  },
+  "id": "000322e7-0842-4b21-b1a9-92121c28df7a",
+  "prevId": "00000000-0000-0000-0000-000000000000"
 }
